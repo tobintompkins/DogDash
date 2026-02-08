@@ -4,9 +4,13 @@ final class SpawnerSystem {
 
     var spawnInterval: TimeInterval = 1.10
     var lanes: [Int] = [-1, 0, 1]
+    var spawnRate: CGFloat = 1.0
 
     var foodChance: Double = 0.18
-    var hideSpotChance: Double = 0.10 // 10% spawns are hide spots
+    var foodSpawnMultiplier: CGFloat = 1.0
+    var hideSpotChance: Double = 0.10  // 10% spawns are hide spots
+    var animalChance: Double = 0.10    // 10% spawns are animals/hazards
+    var predatorChance: Double = 0.05  // subset of animalChance
 
     private var nextSpawnTime: TimeInterval = 0
 
@@ -23,7 +27,8 @@ final class SpawnerSystem {
     ) {
         guard !pauseSpawns else { return }
         guard now >= nextSpawnTime else { return }
-        nextSpawnTime = now + spawnInterval
+        let effectiveInterval = spawnInterval / max(0.1, spawnRate)
+        nextSpawnTime = now + effectiveInterval
 
         let lane = lanes.randomElement() ?? 0
         let roll = Double.random(in: 0...1)
@@ -38,10 +43,26 @@ final class SpawnerSystem {
         }
 
         // Food roll
-        if roll < hideSpotChance + foodChance {
+        let chance = foodChance * Double(foodSpawnMultiplier)
+        if Double.random(in: 0...1) < chance {
             let food = FoodNode()
             food.position = CGPoint(x: laneSystem.x(for: lane), y: spawnY)
             world.addChild(food)
+            return
+        }
+
+        // Animal / Predator roll
+        if roll < hideSpotChance + chance + animalChance {
+            let marker = SKNode()
+            marker.position = CGPoint(x: laneSystem.x(for: lane), y: spawnY)
+
+            if Double.random(in: 0...1) < predatorChance {
+                marker.name = "spawnPredatorMarker"
+            } else {
+                marker.name = "spawnAnimalMarker"
+            }
+
+            world.addChild(marker)
             return
         }
 

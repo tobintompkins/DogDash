@@ -1,9 +1,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var store = ProgressionStore()
+
     var body: some View {
-        GameView()
-            .ignoresSafeArea()
+        NavigationStack {
+            MainMenuView(store: store)
+        }
     }
 }
     

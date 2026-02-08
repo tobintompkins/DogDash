@@ -17,6 +17,10 @@ final class DogNode: SKSpriteNode {
     private var isGrounded: Bool = false
     private var slideEndTime: TimeInterval = 0
 
+    override init(texture: SKTexture?, color: SKColor, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
+    }
+
     convenience init() {
         let size = CGSize(width: 70, height: 90)
         self.init(texture: nil, color: .white, size: size)
@@ -31,7 +35,22 @@ final class DogNode: SKSpriteNode {
         physicsBody?.categoryBitMask = PhysicsCategory.dog
         physicsBody?.collisionBitMask = PhysicsCategory.ground
         physicsBody?.contactTestBitMask =
-            PhysicsCategory.ground | PhysicsCategory.obstacle | PhysicsCategory.food | PhysicsCategory.hideSpot
+            PhysicsCategory.ground
+            | PhysicsCategory.obstacle
+            | PhysicsCategory.food
+            | PhysicsCategory.hideSpot
+            | PhysicsCategory.checkpoint
+            | PhysicsCategory.animal
+            | PhysicsCategory.hazardZone
+            | PhysicsCategory.bear
+            | PhysicsCategory.coverZone
+            | PhysicsCategory.lightningZone
+            | PhysicsCategory.icePatch
+            | PhysicsCategory.laneZone
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 
     func markGrounded(_ grounded: Bool) {
@@ -61,7 +80,18 @@ final class DogNode: SKSpriteNode {
         physicsBody?.categoryBitMask = PhysicsCategory.dog
         physicsBody?.collisionBitMask = PhysicsCategory.ground
         physicsBody?.contactTestBitMask =
-            PhysicsCategory.ground | PhysicsCategory.obstacle | PhysicsCategory.food | PhysicsCategory.hideSpot
+            PhysicsCategory.ground
+            | PhysicsCategory.obstacle
+            | PhysicsCategory.food
+            | PhysicsCategory.hideSpot
+            | PhysicsCategory.checkpoint
+            | PhysicsCategory.animal
+            | PhysicsCategory.hazardZone
+            | PhysicsCategory.bear
+            | PhysicsCategory.coverZone
+            | PhysicsCategory.lightningZone
+            | PhysicsCategory.icePatch
+            | PhysicsCategory.laneZone
     }
 
     func update(now: TimeInterval) {
@@ -83,6 +113,17 @@ final class DogNode: SKSpriteNode {
         physicsBody?.categoryBitMask = PhysicsCategory.dog
         physicsBody?.collisionBitMask = PhysicsCategory.ground
         physicsBody?.contactTestBitMask =
-            PhysicsCategory.ground | PhysicsCategory.obstacle | PhysicsCategory.food | PhysicsCategory.hideSpot
+            PhysicsCategory.ground
+            | PhysicsCategory.obstacle
+            | PhysicsCategory.food
+            | PhysicsCategory.hideSpot
+            | PhysicsCategory.checkpoint
+            | PhysicsCategory.animal
+            | PhysicsCategory.hazardZone
+            | PhysicsCategory.bear
+            | PhysicsCategory.coverZone
+            | PhysicsCategory.lightningZone
+            | PhysicsCategory.icePatch
+            | PhysicsCategory.laneZone
     }
 }

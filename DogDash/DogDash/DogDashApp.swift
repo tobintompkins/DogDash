@@ -4,7 +4,7 @@ import SwiftUI
 struct DogDashApp: App {
     var body: some Scene {
         WindowGroup {
-            GameView()
+            ContentView()
         }
     }
 }
