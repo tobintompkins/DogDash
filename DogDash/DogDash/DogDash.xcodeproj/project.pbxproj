@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		BA30051B2F29DE5500768EEC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA30051A2F29DE5500768EEC /* ContentView.swift */; };
+		MAIN00012F29DE5500768EEC /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = MAIN00002F29DE5500768EEC /* MainMenuView.swift */; };
+		SHOP00012F29DE5500768EEC /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SHOP00002F29DE5500768EEC /* ShopView.swift */; };
+		GOVW00012F29DE5500768EEC /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GOVW00002F29DE5500768EEC /* GameOverView.swift */; };
+		GCNT00012F29DE5500768EEC /* GameContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GCNT00002F29DE5500768EEC /* GameContainerView.swift */; };
 		BAAFC7432F29D69A00A18BE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAAFC73B2F29D69A00A18BE0 /* Assets.xcassets */; };
 		BAAFC7442F29D69A00A18BE0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAAFC73D2F29D69A00A18BE0 /* Preview Assets.xcassets */; };
 		BAAFC7452F29D69A00A18BE0 /* DogDashApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAFC73E2F29D69A00A18BE0 /* DogDashApp.swift */; };
@@ -40,6 +44,42 @@
 		MOOS00012F29DE5500768EEC /* MooseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = MOOS00002F29DE5500768EEC /* MooseNode.swift */; };
 		LION00012F29DE5500768EEC /* LionWarningNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = LION00002F29DE5500768EEC /* LionWarningNode.swift */; };
 		MTNL00012F29DE5500768EEC /* MountainLionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = MTNL00002F29DE5500768EEC /* MountainLionNode.swift */; };
+		HPRB00012F29DE5500768EEC /* HomeProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = HPRB00002F29DE5500768EEC /* HomeProgressBar.swift */; };
+		GSTA00012F29DE5500768EEC /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = GSTA00002F29DE5500768EEC /* GameState.swift */; };
+		GHUD00012F29DE5500768EEC /* GameHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = GHUD00002F29DE5500768EEC /* GameHUD.swift */; };
+		ADRN00012F29DE5500768EEC /* AdrenalineSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADRN00002F29DE5500768EEC /* AdrenalineSystem.swift */; };
+		SCNT00012F29DE5500768EEC /* ScentSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = SCNT00002F29DE5500768EEC /* ScentSystem.swift */; };
+		LNZN00012F29DE5500768EEC /* LaneZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = LNZN00002F29DE5500768EEC /* LaneZone.swift */; };
+		RISK00012F29DE5500768EEC /* RiskLaneSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = RISK00002F29DE5500768EEC /* RiskLaneSystem.swift */; };
+		RUNM00012F29DE5500768EEC /* RunModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = RUNM00002F29DE5500768EEC /* RunModifiers.swift */; };
+		DAIL00012F29DE5500768EEC /* DailyChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAIL00002F29DE5500768EEC /* DailyChallenge.swift */; };
+		DAIS00012F29DE5500768EEC /* DailyChallengeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAIS00002F29DE5500768EEC /* DailyChallengeSystem.swift */; };
+		UPGD00012F29DE5500768EEC /* UpgradeCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = UPGD00002F29DE5500768EEC /* UpgradeCatalog.swift */; };
+		PROG00012F29DE5500768EEC /* ProgressionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = PROG00002F29DE5500768EEC /* ProgressionStore.swift */; };
+		APLU00012F29DE5500768EEC /* AppliedUpgrades.swift in Sources */ = {isa = PBXBuildFile; fileRef = APLU00002F29DE5500768EEC /* AppliedUpgrades.swift */; };
+		MISS00012F29DE5500768EEC /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = MISS00002F29DE5500768EEC /* Mission.swift */; };
+		STRK00012F29DE5500768EEC /* StreakTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = STRK00002F29DE5500768EEC /* StreakTracker.swift */; };
+		DMIS00012F29DE5500768EEC /* DailyMissionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DMIS00002F29DE5500768EEC /* DailyMissionSystem.swift */; };
+		MHUD00012F29DE5500768EEC /* MissionHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = MHUD00002F29DE5500768EEC /* MissionHUD.swift */; };
+		RANK00012F29DE5500768EEC /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = RANK00002F29DE5500768EEC /* RankView.swift */; };
+		RANK00022F29DE5500768EEC /* RankUpPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = RANK00032F29DE5500768EEC /* RankUpPopup.swift */; };
+		RNCK00012F29DE5500768EEC /* RankCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = RNCK00002F29DE5500768EEC /* RankCatalog.swift */; };
+		RNSY00012F29DE5500768EEC /* RankSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = RNSY00002F29DE5500768EEC /* RankSystem.swift */; };
+		JUIC00012F29DE5500768EEC /* JuiceFXSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = JUIC00002F29DE5500768EEC /* JuiceFXSystem.swift */; };
+		JUIA00012F29DE5500768EEC /* JuiceAudioSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = JUIA00002F29DE5500768EEC /* JuiceAudioSystem.swift */; };
+		CAMJ00012F29DE5500768EEC /* CameraJuiceSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAMJ00002F29DE5500768EEC /* CameraJuiceSystem.swift */; };
+		SLMO00012F29DE5500768EEC /* SlowMoSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = SLMO00002F29DE5500768EEC /* SlowMoSystem.swift */; };
+		DNGV00012F29DE5500768EEC /* DangerVignette.swift in Sources */ = {isa = PBXBuildFile; fileRef = DNGV00002F29DE5500768EEC /* DangerVignette.swift */; };
+		GCCO00012F29DE5500768EEC /* GCConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = GCCO00002F29DE5500768EEC /* GCConstants.swift */; };
+		GCMC00012F29DE5500768EEC /* GameCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = GCMC00002F29DE5500768EEC /* GameCenterManager.swift */; };
+		BIOM00012F29DE5500768EEC /* BiomeCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = BIOM00002F29DE5500768EEC /* BiomeCatalog.swift */; };
+		WPIC00012F29DE5500768EEC /* WeightedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = WPIC00002F29DE5500768EEC /* WeightedPicker.swift */; };
+		BIOS00012F29DE5500768EEC /* BiomeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BIOS00002F29DE5500768EEC /* BiomeSystem.swift */; };
+		BIOB00012F29DE5500768EEC /* BiomeBannerHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = BIOB00002F29DE5500768EEC /* BiomeBannerHUD.swift */; };
+		PERK00012F29DE5500768EEC /* PerkCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = PERK00002F29DE5500768EEC /* PerkCatalog.swift */; };
+		PERK00022F29DE5500768EEC /* PerkSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = PERK00032F29DE5500768EEC /* PerkSystem.swift */; };
+		PERK00042F29DE5500768EEC /* PerksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = PERK00052F29DE5500768EEC /* PerksView.swift */; };
+		SKIN00012F29DE5500768EEC /* SkinCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = SKIN00002F29DE5500768EEC /* SkinCatalog.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +103,10 @@
 		CAMR00002F29DE5500768EEC /* CameraRig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraRig.swift; sourceTree = "<group>"; };
 		DOGN00002F29DE5500768EEC /* DogNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogNode.swift; sourceTree = "<group>"; };
 		HUDV00002F29DE5500768EEC /* HUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDView.swift; sourceTree = "<group>"; };
+		MAIN00002F29DE5500768EEC /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		SHOP00002F29DE5500768EEC /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
+		GOVW00002F29DE5500768EEC /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
+		GCNT00002F29DE5500768EEC /* GameContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameContainerView.swift; sourceTree = "<group>"; };
 		STAT00002F29DE5500768EEC /* StatusEffectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEffectType.swift; sourceTree = "<group>"; };
 		STES00002F29DE5500768EEC /* StatusEffectSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusEffectSystem.swift; sourceTree = "<group>"; };
 		DEER00002F29DE5500768EEC /* DeerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeerNode.swift; sourceTree = "<group>"; };
@@ -77,6 +121,42 @@
 		MOOS00002F29DE5500768EEC /* MooseNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MooseNode.swift; sourceTree = "<group>"; };
 		LION00002F29DE5500768EEC /* LionWarningNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LionWarningNode.swift; sourceTree = "<group>"; };
 		MTNL00002F29DE5500768EEC /* MountainLionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MountainLionNode.swift; sourceTree = "<group>"; };
+		HPRB00002F29DE5500768EEC /* HomeProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProgressBar.swift; sourceTree = "<group>"; };
+		GSTA00002F29DE5500768EEC /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		GHUD00002F29DE5500768EEC /* GameHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHUD.swift; sourceTree = "<group>"; };
+		ADRN00002F29DE5500768EEC /* AdrenalineSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdrenalineSystem.swift; sourceTree = "<group>"; };
+		SCNT00002F29DE5500768EEC /* ScentSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScentSystem.swift; sourceTree = "<group>"; };
+		LNZN00002F29DE5500768EEC /* LaneZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaneZone.swift; sourceTree = "<group>"; };
+		RISK00002F29DE5500768EEC /* RiskLaneSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLaneSystem.swift; sourceTree = "<group>"; };
+		RUNM00002F29DE5500768EEC /* RunModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunModifiers.swift; sourceTree = "<group>"; };
+		DAIL00002F29DE5500768EEC /* DailyChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallenge.swift; sourceTree = "<group>"; };
+		DAIS00002F29DE5500768EEC /* DailyChallengeSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeSystem.swift; sourceTree = "<group>"; };
+		UPGD00002F29DE5500768EEC /* UpgradeCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeCatalog.swift; sourceTree = "<group>"; };
+		PROG00002F29DE5500768EEC /* ProgressionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressionStore.swift; sourceTree = "<group>"; };
+		APLU00002F29DE5500768EEC /* AppliedUpgrades.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppliedUpgrades.swift; sourceTree = "<group>"; };
+		MISS00002F29DE5500768EEC /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
+		STRK00002F29DE5500768EEC /* StreakTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakTracker.swift; sourceTree = "<group>"; };
+		DMIS00002F29DE5500768EEC /* DailyMissionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMissionSystem.swift; sourceTree = "<group>"; };
+		MHUD00002F29DE5500768EEC /* MissionHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionHUD.swift; sourceTree = "<group>"; };
+		RANK00002F29DE5500768EEC /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
+		RANK00032F29DE5500768EEC /* RankUpPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankUpPopup.swift; sourceTree = "<group>"; };
+		RNCK00002F29DE5500768EEC /* RankCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankCatalog.swift; sourceTree = "<group>"; };
+		RNSY00002F29DE5500768EEC /* RankSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankSystem.swift; sourceTree = "<group>"; };
+		JUIC00002F29DE5500768EEC /* JuiceFXSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JuiceFXSystem.swift; sourceTree = "<group>"; };
+		JUIA00002F29DE5500768EEC /* JuiceAudioSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JuiceAudioSystem.swift; sourceTree = "<group>"; };
+		CAMJ00002F29DE5500768EEC /* CameraJuiceSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraJuiceSystem.swift; sourceTree = "<group>"; };
+		SLMO00002F29DE5500768EEC /* SlowMoSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlowMoSystem.swift; sourceTree = "<group>"; };
+		DNGV00002F29DE5500768EEC /* DangerVignette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DangerVignette.swift; sourceTree = "<group>"; };
+		GCCO00002F29DE5500768EEC /* GCConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCConstants.swift; sourceTree = "<group>"; };
+		GCMC00002F29DE5500768EEC /* GameCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterManager.swift; sourceTree = "<group>"; };
+		BIOM00002F29DE5500768EEC /* BiomeCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomeCatalog.swift; sourceTree = "<group>"; };
+		WPIC00002F29DE5500768EEC /* WeightedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightedPicker.swift; sourceTree = "<group>"; };
+		BIOS00002F29DE5500768EEC /* BiomeSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomeSystem.swift; sourceTree = "<group>"; };
+		BIOB00002F29DE5500768EEC /* BiomeBannerHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomeBannerHUD.swift; sourceTree = "<group>"; };
+		PERK00002F29DE5500768EEC /* PerkCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerkCatalog.swift; sourceTree = "<group>"; };
+		PERK00032F29DE5500768EEC /* PerkSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerkSystem.swift; sourceTree = "<group>"; };
+		PERK00052F29DE5500768EEC /* PerksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerksView.swift; sourceTree = "<group>"; };
+		SKIN00002F29DE5500768EEC /* SkinCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinCatalog.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +193,18 @@
 			children = (
 				BA30051A2F29DE5500768EEC /* ContentView.swift */,
 				HUDV00002F29DE5500768EEC /* HUDView.swift */,
+				HPRB00002F29DE5500768EEC /* HomeProgressBar.swift */,
+				GHUD00002F29DE5500768EEC /* GameHUD.swift */,
+				BIOB00002F29DE5500768EEC /* BiomeBannerHUD.swift */,
+				MAIN00002F29DE5500768EEC /* MainMenuView.swift */,
+				PERK00052F29DE5500768EEC /* PerksView.swift */,
+				SHOP00002F29DE5500768EEC /* ShopView.swift */,
+				GOVW00002F29DE5500768EEC /* GameOverView.swift */,
+				GCNT00002F29DE5500768EEC /* GameContainerView.swift */,
+				MHUD00002F29DE5500768EEC /* MissionHUD.swift */,
+				RANK00002F29DE5500768EEC /* RankView.swift */,
+				RANK00032F29DE5500768EEC /* RankUpPopup.swift */,
+				DNGV00002F29DE5500768EEC /* DangerVignette.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -141,14 +233,41 @@
 				BAAFC7402F29D69A00A18BE0 /* GameView.swift */,
 				BAAFC7412F29D69A00A18BE0 /* GameScene.swift */,
 				GVM00002F29DE5500768EEC /* GameViewModel.swift */,
+				GSTA00002F29DE5500768EEC /* GameState.swift */,
+				ADRN00002F29DE5500768EEC /* AdrenalineSystem.swift */,
+				SCNT00002F29DE5500768EEC /* ScentSystem.swift */,
 				INPT00002F29DE5500768EEC /* InputRouter.swift */,
 				CAMR00002F29DE5500768EEC /* CameraRig.swift */,
 				DOGN00002F29DE5500768EEC /* DogNode.swift */,
 				BEAR00002F29DE5500768EEC /* BearNode.swift */,
+				BIOM00002F29DE5500768EEC /* BiomeCatalog.swift */,
+				BIOS00002F29DE5500768EEC /* BiomeSystem.swift */,
 				DEER00002F29DE5500768EEC /* DeerNode.swift */,
 				SKUN00002F29DE5500768EEC /* SkunkNode.swift */,
 				STIN00002F29DE5500768EEC /* StinkCloudNode.swift */,
 				LANE00002F29DE5500768EEC /* LaneSystem.swift */,
+				LNZN00002F29DE5500768EEC /* LaneZone.swift */,
+				RISK00002F29DE5500768EEC /* RiskLaneSystem.swift */,
+				RUNM00002F29DE5500768EEC /* RunModifiers.swift */,
+				DAIL00002F29DE5500768EEC /* DailyChallenge.swift */,
+				DAIS00002F29DE5500768EEC /* DailyChallengeSystem.swift */,
+				MISS00002F29DE5500768EEC /* Mission.swift */,
+				STRK00002F29DE5500768EEC /* StreakTracker.swift */,
+				DMIS00002F29DE5500768EEC /* DailyMissionSystem.swift */,
+				UPGD00002F29DE5500768EEC /* UpgradeCatalog.swift */,
+				PERK00002F29DE5500768EEC /* PerkCatalog.swift */,
+				PERK00032F29DE5500768EEC /* PerkSystem.swift */,
+				SKIN00002F29DE5500768EEC /* SkinCatalog.swift */,
+				PROG00002F29DE5500768EEC /* ProgressionStore.swift */,
+				GCCO00002F29DE5500768EEC /* GCConstants.swift */,
+				GCMC00002F29DE5500768EEC /* GameCenterManager.swift */,
+				APLU00002F29DE5500768EEC /* AppliedUpgrades.swift */,
+				RNCK00002F29DE5500768EEC /* RankCatalog.swift */,
+				RNSY00002F29DE5500768EEC /* RankSystem.swift */,
+				JUIC00002F29DE5500768EEC /* JuiceFXSystem.swift */,
+				JUIA00002F29DE5500768EEC /* JuiceAudioSystem.swift */,
+				CAMJ00002F29DE5500768EEC /* CameraJuiceSystem.swift */,
+				SLMO00002F29DE5500768EEC /* SlowMoSystem.swift */,
 				OBST00002F29DE5500768EEC /* ObstacleNode.swift */,
 				CHKP00002F29DE5500768EEC /* CheckpointNode.swift */,
 				COVZ00002F29DE5500768EEC /* CoverZoneNode.swift */,
@@ -166,6 +285,7 @@
 				STAT00002F29DE5500768EEC /* StatusEffectType.swift */,
 				STES00002F29DE5500768EEC /* StatusEffectSystem.swift */,
 				WETH00002F29DE5500768EEC /* WeatherSystem.swift */,
+				WPIC00002F29DE5500768EEC /* WeightedPicker.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -261,6 +381,9 @@
 				SKUN00012F29DE5500768EEC /* SkunkNode.swift in Sources */,
 				STIN00012F29DE5500768EEC /* StinkCloudNode.swift in Sources */,
 				BEAR00012F29DE5500768EEC /* BearNode.swift in Sources */,
+				BIOM00012F29DE5500768EEC /* BiomeCatalog.swift in Sources */,
+				BIOS00012F29DE5500768EEC /* BiomeSystem.swift in Sources */,
+				WPIC00012F29DE5500768EEC /* WeightedPicker.swift in Sources */,
 				WETH00012F29DE5500768EEC /* WeatherSystem.swift in Sources */,
 				COVZ00012F29DE5500768EEC /* CoverZoneNode.swift in Sources */,
 				LIGH00012F29DE5500768EEC /* LightningZoneNode.swift in Sources */,
@@ -270,7 +393,44 @@
 				LION00012F29DE5500768EEC /* LionWarningNode.swift in Sources */,
 				MTNL00012F29DE5500768EEC /* MountainLionNode.swift in Sources */,
 				BA30051B2F29DE5500768EEC /* ContentView.swift in Sources */,
+				MAIN00012F29DE5500768EEC /* MainMenuView.swift in Sources */,
+				SHOP00012F29DE5500768EEC /* ShopView.swift in Sources */,
+				GOVW00012F29DE5500768EEC /* GameOverView.swift in Sources */,
+				GCNT00012F29DE5500768EEC /* GameContainerView.swift in Sources */,
+				MHUD00012F29DE5500768EEC /* MissionHUD.swift in Sources */,
+				RANK00012F29DE5500768EEC /* RankView.swift in Sources */,
+				RANK00022F29DE5500768EEC /* RankUpPopup.swift in Sources */,
 				BAAFC7462F29D69A00A18BE0 /* GameView.swift in Sources */,
+				HPRB00012F29DE5500768EEC /* HomeProgressBar.swift in Sources */,
+				GSTA00012F29DE5500768EEC /* GameState.swift in Sources */,
+				GHUD00012F29DE5500768EEC /* GameHUD.swift in Sources */,
+				BIOB00012F29DE5500768EEC /* BiomeBannerHUD.swift in Sources */,
+				ADRN00012F29DE5500768EEC /* AdrenalineSystem.swift in Sources */,
+				SCNT00012F29DE5500768EEC /* ScentSystem.swift in Sources */,
+				LNZN00012F29DE5500768EEC /* LaneZone.swift in Sources */,
+				RISK00012F29DE5500768EEC /* RiskLaneSystem.swift in Sources */,
+				RUNM00012F29DE5500768EEC /* RunModifiers.swift in Sources */,
+				DAIL00012F29DE5500768EEC /* DailyChallenge.swift in Sources */,
+				DAIS00012F29DE5500768EEC /* DailyChallengeSystem.swift in Sources */,
+				MISS00012F29DE5500768EEC /* Mission.swift in Sources */,
+				STRK00012F29DE5500768EEC /* StreakTracker.swift in Sources */,
+				DMIS00012F29DE5500768EEC /* DailyMissionSystem.swift in Sources */,
+				UPGD00012F29DE5500768EEC /* UpgradeCatalog.swift in Sources */,
+				PERK00012F29DE5500768EEC /* PerkCatalog.swift in Sources */,
+				PERK00022F29DE5500768EEC /* PerkSystem.swift in Sources */,
+				PERK00042F29DE5500768EEC /* PerksView.swift in Sources */,
+				SKIN00012F29DE5500768EEC /* SkinCatalog.swift in Sources */,
+				PROG00012F29DE5500768EEC /* ProgressionStore.swift in Sources */,
+				GCCO00012F29DE5500768EEC /* GCConstants.swift in Sources */,
+				GCMC00012F29DE5500768EEC /* GameCenterManager.swift in Sources */,
+				APLU00012F29DE5500768EEC /* AppliedUpgrades.swift in Sources */,
+				RNCK00012F29DE5500768EEC /* RankCatalog.swift in Sources */,
+				RNSY00012F29DE5500768EEC /* RankSystem.swift in Sources */,
+				JUIC00012F29DE5500768EEC /* JuiceFXSystem.swift in Sources */,
+				JUIA00012F29DE5500768EEC /* JuiceAudioSystem.swift in Sources */,
+				CAMJ00012F29DE5500768EEC /* CameraJuiceSystem.swift in Sources */,
+				SLMO00012F29DE5500768EEC /* SlowMoSystem.swift in Sources */,
+				DNGV00012F29DE5500768EEC /* DangerVignette.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

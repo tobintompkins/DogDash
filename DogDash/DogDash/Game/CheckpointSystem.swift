@@ -1,41 +1,36 @@
 import SpriteKit
 
 final class CheckpointSystem {
+    private weak var scene: GameScene?
+    private var timer: TimeInterval = 0
+    private let spawnInterval: TimeInterval = 45
 
-    // Spawn every 30-60 seconds
-    var minInterval: TimeInterval = 30
-    var maxInterval: TimeInterval = 60
-
-    private var nextCheckpointTime: TimeInterval = 0
-    private var hasActiveCheckpoint: Bool = false
-
-    func reset(now: TimeInterval) {
-        scheduleNext(now: now)
-        hasActiveCheckpoint = false
+    init(scene: GameScene) {
+        self.scene = scene
     }
 
-    func update(
-        now: TimeInterval,
-        world: SKNode,
-        spawnY: CGFloat
-    ) {
-        guard now >= nextCheckpointTime else { return }
-        guard !hasActiveCheckpoint else { return }
-
-        let cp = CheckpointNode()
-        cp.position = CGPoint(x: 0, y: spawnY)
-        world.addChild(cp)
-
-        hasActiveCheckpoint = true
+    func update(delta: TimeInterval) {
+        timer += delta
+        if timer >= spawnInterval {
+            spawnCheckpoint()
+            timer = 0
+        }
     }
 
-    func didTriggerCheckpoint(now: TimeInterval) {
-        hasActiveCheckpoint = false
-        scheduleNext(now: now)
-    }
+    private func spawnCheckpoint() {
+        guard let scene else { return }
 
-    private func scheduleNext(now: TimeInterval) {
-        let interval = TimeInterval.random(in: minInterval...maxInterval)
-        nextCheckpointTime = now + interval
+        let gate = SKSpriteNode(color: .purple, size: CGSize(width: 60, height: 200))
+        gate.name = "checkpoint"
+        gate.position = CGPoint(x: scene.cameraNode.position.x + 500, y: 0)
+        gate.zPosition = 5
+
+        gate.physicsBody = SKPhysicsBody(rectangleOf: gate.size)
+        gate.physicsBody?.isDynamic = false
+        gate.physicsBody?.categoryBitMask = PhysicsCategory.checkpoint
+        gate.physicsBody?.collisionBitMask = PhysicsCategory.none
+        gate.physicsBody?.contactTestBitMask = PhysicsCategory.dog
+
+        scene.addChild(gate)
     }
 }

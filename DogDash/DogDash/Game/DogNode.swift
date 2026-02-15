@@ -7,7 +7,7 @@ final class DogNode: SKSpriteNode {
         case slide
     }
 
-    private(set) var stance: Stance
+    private(set) var stance: Stance = .run
 
     // Tunables
     var jumpImpulse: CGFloat = 820
@@ -17,10 +17,13 @@ final class DogNode: SKSpriteNode {
     private var isGrounded: Bool = false
     private var slideEndTime: TimeInterval = 0
 
+    override init(texture: SKTexture?, color: SKColor, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
+    }
+
     convenience init() {
         let size = CGSize(width: 70, height: 90)
         self.init(texture: nil, color: .white, size: size)
-        stance = .run
         name = "dog"
         zPosition = 10
 
@@ -43,6 +46,11 @@ final class DogNode: SKSpriteNode {
             | PhysicsCategory.coverZone
             | PhysicsCategory.lightningZone
             | PhysicsCategory.icePatch
+            | PhysicsCategory.laneZone
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 
     func markGrounded(_ grounded: Bool) {
@@ -83,6 +91,7 @@ final class DogNode: SKSpriteNode {
             | PhysicsCategory.coverZone
             | PhysicsCategory.lightningZone
             | PhysicsCategory.icePatch
+            | PhysicsCategory.laneZone
     }
 
     func update(now: TimeInterval) {
@@ -115,5 +124,6 @@ final class DogNode: SKSpriteNode {
             | PhysicsCategory.coverZone
             | PhysicsCategory.lightningZone
             | PhysicsCategory.icePatch
+            | PhysicsCategory.laneZone
     }
 }

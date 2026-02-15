@@ -24,28 +24,17 @@ private struct MeterBar: View {
     }
 }
 
-struct HUDView: View {
-    let isGameOver: Bool
-    let isWon: Bool
-    let scoreText: String
-    let timeText: String
-    let stamina: Double
-    let hunger: Double
-    let catcher: Double
-    let homeProgress: Double
-    let checkpointCount: Int
-    let effectsText: String
-    let weatherText: String
-    let coverTimerText: String
-    let weatherHintText: String
-    let dailyTitle: String
-    let dailyDescription: String
-    let onRestart: () -> Void
-    var onMenu: (() -> Void)? = nil
-    var onShop: (() -> Void)? = nil
-    var distance: Int = 0
-    var pawPoints: Int = 0
-    var bestDistance: Int = 0
+struct GameHUD: View {
+    let scene: GameScene
+    @ObservedObject var gameState: GameState
+
+    @ObservedObject private var viewModel: GameViewModel
+
+    init(scene: GameScene, gameState: GameState) {
+        self.scene = scene
+        self.gameState = gameState
+        self._viewModel = ObservedObject(wrappedValue: scene.viewModel)
+    }
 
     var body: some View {
         VStack(spacing: 12) {
@@ -60,9 +49,9 @@ struct HUDView: View {
                 Spacer()
 
                 VStack(alignment: .trailing, spacing: 6) {
-                    Text("Score: \(scoreText)")
+                    Text("Score: \(viewModel.scoreText)")
                         .font(.headline)
-                    Text("Time: \(timeText)")
+                    Text("Time: \(viewModel.timeText)")
                         .font(.subheadline)
                 }
                 .padding(.vertical, 6)
@@ -73,9 +62,9 @@ struct HUDView: View {
             .allowsHitTesting(false)
 
             HStack(alignment: .top, spacing: 12) {
-                HomeProgressBar(progress: CGFloat(homeProgress))
+                HomeProgressBar(progress: gameState.homeProgress)
                 Spacer()
-                Text("\(Int(homeProgress * 100))%  •  CP: \(checkpointCount)")
+                Text("\(Int(gameState.homeProgress * 100))%  •  CP: \(viewModel.checkpointCount)")
                     .font(.caption)
                     .opacity(0.9)
                     .foregroundStyle(.white)
@@ -83,8 +72,8 @@ struct HUDView: View {
             .padding(.top, 6)
             .allowsHitTesting(false)
 
-            if !effectsText.isEmpty {
-                Text("Effects: \(effectsText)")
+            if !viewModel.activeEffectsText.isEmpty {
+                Text("Effects: \(viewModel.activeEffectsText)")
                     .font(.caption)
                     .padding(.vertical, 6)
                     .padding(.horizontal, 10)
@@ -95,11 +84,11 @@ struct HUDView: View {
             }
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(dailyTitle)
+                Text(gameState.dailyTitle)
                     .font(.caption.bold())
                     .foregroundColor(.white)
-                if !dailyDescription.isEmpty {
-                    Text(dailyDescription)
+                if !gameState.dailyDescription.isEmpty {
+                    Text(gameState.dailyDescription)
                         .font(.caption2)
                         .foregroundColor(.white.opacity(0.85))
                 }
@@ -109,7 +98,7 @@ struct HUDView: View {
             .cornerRadius(12)
             .allowsHitTesting(false)
 
-            Text(weatherText.uppercased())
+            Text(viewModel.weatherText.uppercased())
                 .font(.caption.bold())
                 .foregroundColor(.white.opacity(0.85))
                 .padding(.horizontal, 10)
@@ -118,8 +107,8 @@ struct HUDView: View {
                 .cornerRadius(10)
                 .allowsHitTesting(false)
 
-            if !coverTimerText.isEmpty {
-                Text(coverTimerText)
+            if !viewModel.coverTimerText.isEmpty {
+                Text(viewModel.coverTimerText)
                     .font(.caption).bold()
                     .padding(.vertical, 6)
                     .padding(.horizontal, 10)
@@ -129,8 +118,8 @@ struct HUDView: View {
                     .allowsHitTesting(false)
             }
 
-            if !weatherHintText.isEmpty {
-                Text(weatherHintText)
+            if !viewModel.weatherHintText.isEmpty {
+                Text(viewModel.weatherHintText)
                     .font(.caption)
                     .padding(.vertical, 6)
                     .padding(.horizontal, 10)
@@ -140,58 +129,23 @@ struct HUDView: View {
                     .allowsHitTesting(false)
             }
 
-            // Stamina, Hunger, Catcher meters
+            HStack {
+                MissionHUD(gameState: gameState)
+                Spacer()
+            }
+
             HStack(spacing: 16) {
-                MeterBar(label: "Stamina", value: stamina, color: .green)
-                MeterBar(label: "Hunger", value: hunger, color: .orange)
-                MeterBar(label: "Catcher", value: catcher, color: .red.opacity(0.9))
+                MeterBar(label: "Stamina", value: viewModel.stamina, color: .green)
+                MeterBar(label: "Hunger", value: viewModel.hunger, color: .orange)
+                MeterBar(label: "Catcher", value: viewModel.catcher, color: .red.opacity(0.9))
             }
             .padding(.top, 8)
             .allowsHitTesting(false)
 
-            if isGameOver || isWon, let onMenu, let onShop {
-                GameOverView(
-                    title: isWon ? "You Win!" : "Game Over",
-                    distance: distance,
-                    pawPoints: pawPoints,
-                    bestDistance: bestDistance,
-                    dailyTitle: dailyTitle.isEmpty ? nil : dailyTitle,
-                    onRetry: onRestart,
-                    onMenu: onMenu,
-                    onShop: onShop
-                )
-            } else if isGameOver || isWon {
-                VStack(spacing: 10) {
-                    Text(isWon ? "You Win!" : "Game Over")
-                        .font(.title2).bold()
-
-                    HStack(spacing: 12) {
-                        Button("Restart") { onRestart() }
-                            .font(.headline)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 18)
-                            .background(.white.opacity(0.9))
-                            .foregroundStyle(.black)
-                            .clipShape(RoundedRectangle(cornerRadius: 14))
-
-                        if let onMenu {
-                            Button("Menu") { onMenu() }
-                                .font(.headline)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 18)
-                                .background(.white.opacity(0.9))
-                                .foregroundStyle(.black)
-                                .clipShape(RoundedRectangle(cornerRadius: 14))
-                        }
-                    }
-                }
-                .padding(16)
-                .background(.black.opacity(0.45))
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-            }
-
             Spacer()
                 .allowsHitTesting(false)
         }
+        .padding(.top, 16)
+        .padding(.horizontal, 16)
     }
 }

@@ -1,12 +1,16 @@
 import Foundation
+import SwiftUI
 
 enum GamePhase {
     case ready
     case running
     case gameOver
+    case won
 }
 
 final class GameViewModel: ObservableObject {
+    let gameState: GameState
+
     @Published var phase: GamePhase = .ready
 
     @Published private(set) var score: Int = 0
@@ -21,6 +25,11 @@ final class GameViewModel: ObservableObject {
     @Published private(set) var weatherText: String = "Clear"
     @Published private(set) var coverTimerText: String = ""
     @Published private(set) var weatherHintText: String = ""
+    @Published private(set) var speedMultiplier: CGFloat = 1
+
+    init(sharedGameState: GameState? = nil) {
+        self.gameState = sharedGameState ?? GameState()
+    }
 
     private let hideDuration: TimeInterval = 2.2
     private let hideCatcherDrainPerSecond: Double = 0.20
@@ -36,6 +45,7 @@ final class GameViewModel: ObservableObject {
     private let slideStaminaCost: Double = 0.07
 
     var isGameOver: Bool { phase == .gameOver }
+    var isWon: Bool { phase == .won }
 
     var scoreText: String { "\(score)" }
     var timeText: String {
@@ -49,6 +59,26 @@ final class GameViewModel: ObservableObject {
 
     func triggerGameOver() {
         phase = .gameOver
+        gameState.isRunOver = true
+        gameState.didWin = false
+    }
+
+    func triggerWin() {
+        phase = .won
+        gameState.isRunOver = true
+        gameState.didWin = true
+    }
+
+    func forceStaminaForAdrenalineStart() {
+        stamina = min(stamina, 0.15)
+    }
+
+    func addStaminaCapacityBonus(_ bonus: CGFloat) {
+        stamina = min(1.0, stamina + Double(bonus) / 100)
+    }
+
+    func addStaminaPercent(_ percent: Double) {
+        stamina = min(1.0, stamina + percent)
     }
 
     func reset() {
@@ -61,11 +91,27 @@ final class GameViewModel: ObservableObject {
         homeProgress = 0.0
         checkpointCount = 0
         hunger = 1.0
-        stamina = 1.0
+        stamina = gameState.runModifiers.startWithAdrenaline ? 0.15 : 1.0
         activeEffectsText = ""
         weatherText = "Clear"
         coverTimerText = ""
         weatherHintText = ""
+        speedMultiplier = 1
+        gameState.pawPointsEarnedThisRun = 0
+        gameState.distanceThisRun = 0
+        gameState.ppFromMissionsThisRun = 0
+        gameState.isRunOver = false
+        gameState.didWin = false
+        gameState.homeProgress = 0
+        gameState.speedMultiplier = 1
+        gameState.isAdrenalineActive = false
+        gameState.scent = 0
+        gameState.catcherPressure = 1.0
+        gameState.currentLaneZone = "safe"
+        gameState.weather = "clear"
+        gameState.visibilityAlpha = 1.0
+        gameState.scentGainMultiplier = 1.0
+        gameState.scentDecayMultiplier = 1.0
     }
 
     func beginHide(nowElapsed: TimeInterval) {
@@ -73,7 +119,7 @@ final class GameViewModel: ObservableObject {
     }
 
     func beginHide(type: HideSpotType?, nowElapsed: TimeInterval) {
-        guard phase == .running else { return }
+        guard phase == .running, !gameState.runModifiers.noHiding else { return }
         isHiding = true
         hideEndTime = nowElapsed + hideDuration
         catcher = clamp01(catcher - 0.06)
@@ -91,11 +137,13 @@ final class GameViewModel: ObservableObject {
         guard phase == .running else { return }
         elapsed += deltaTime
         score += distancePoints
+        gameState.distanceThisRun += distancePoints
     }
 
     func addBonusPoints(_ points: Int) {
         guard phase == .running else { return }
-        score += points
+        let mult = gameState.runModifiers.scoreMultiplier
+        score += max(0, Int(Double(points) * mult))
     }
 
     func canSpendStamina(_ amount: Double) -> Bool {
@@ -114,7 +162,8 @@ final class GameViewModel: ObservableObject {
 
     func onObstacleHit() {
         guard phase == .running else { return }
-        catcher = clamp01(catcher + obstacleCatcherBump)
+        let bump = obstacleCatcherBump * Double(gameState.catcherPressure)
+        catcher = clamp01(catcher + bump)
         if catcher >= 1.0 { triggerGameOver() }
     }
 
@@ -124,18 +173,26 @@ final class GameViewModel: ObservableObject {
 
     func setHomeProgress(_ value: Double) {
         homeProgress = clamp01(value)
+        gameState.homeProgress = CGFloat(homeProgress)
+    }
+
+    func setSpeedMultiplier(_ value: CGFloat) {
+        speedMultiplier = max(0.1, min(value, 3))
+        gameState.speedMultiplier = speedMultiplier
     }
 
     func setActiveEffectsText(_ text: String) {
         activeEffectsText = text
     }
 
-    func setWeather(state: WeatherState) {
-        switch state {
-        case .clear: weatherText = "Clear"
-        case .thunderstorm: weatherText = "Thunderstorm"
-        case .snowstorm: weatherText = "Snowstorm"
-        }
+    func setWeatherText(_ text: String) {
+        weatherText = text.prefix(1).uppercased() + text.dropFirst()
+    }
+
+    func applyStaminaHungerDrain(dt: TimeInterval, staminaDrainPerSec: CGFloat, hungerDrainPerSec: CGFloat) {
+        guard phase == .running else { return }
+        stamina = max(0, stamina - Double(staminaDrainPerSec) * dt)
+        hunger = max(0, hunger - Double(hungerDrainPerSec) * dt)
     }
 
     func setWeatherHint(_ text: String) {
@@ -165,17 +222,14 @@ final class GameViewModel: ObservableObject {
 
         checkpointCount += 1
         homeProgress = clamp01(homeProgress + homeProgressPerCheckpoint)
+        gameState.homeProgress = CGFloat(homeProgress)
 
         // Reward burst
         hunger = clamp01(hunger + checkpointHungerBoost)
         stamina = clamp01(stamina + checkpointStaminaBoost)
         catcher = clamp01(catcher - checkpointCatcherRelief)
 
-        // Optional: reaching home ends the run (win condition)
-        if homeProgress >= 1.0 {
-            // For now treat as game over (later you'll make a WIN screen)
-            triggerGameOver()
-        }
+        // Win condition handled by GameScene.triggerWin()
     }
 
     func updateHiding(dt: TimeInterval, elapsed: TimeInterval) {

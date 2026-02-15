@@ -1,110 +1,102 @@
 import Foundation
+import SpriteKit
 
-enum WeatherState {
+enum WeatherType: String, CaseIterable {
     case clear
-    case thunderstorm
-    case snowstorm
+    case rain
+    case snow
+    case fog
+    case heat
+}
+
+struct WeatherModifiers {
+    var scentGainMultiplier: CGFloat      // multiplies scent gains (jump/slide/sprint)
+    var scentDecayMultiplier: CGFloat     // multiplies scent passive decay
+    var staminaDrainPerSec: CGFloat // extra drain per second
+    var hungerDrainPerSec: CGFloat  // extra drain per second
+    var spawnIntensityMult: CGFloat // affects obstacle spawn rate/intensity
+    var visibilityAlpha: CGFloat    // 1.0 normal, lower = fog overlay stronger
 }
 
 final class WeatherSystem {
+    private weak var scene: GameScene?
+    private var timer: TimeInterval = 0
+    private var nextChangeIn: TimeInterval = 30
 
-    private(set) var state: WeatherState = .clear
+    private(set) var current: WeatherType = .clear
 
-    // Timing
-    var clearMin: TimeInterval = 16
-    var clearMax: TimeInterval = 28
-
-    var stormMin: TimeInterval = 14
-    var stormMax: TimeInterval = 22
-
-    var snowMin: TimeInterval = 16
-    var snowMax: TimeInterval = 26
-
-    // Cover timer (thunder only)
-    var coverDeadlineSeconds: TimeInterval = 6.0
-
-    // Chances when leaving CLEAR
-    var thunderChance: Double = 0.55
-    var snowChance: Double = 0.45
-
-    private var nextStateChangeTime: TimeInterval = 0
-    private var stateEndTime: TimeInterval = 0
-
-    // Cover challenge (thunder only)
-    private(set) var coverActive: Bool = false
-    private(set) var coverRemaining: TimeInterval = 0
-
-    func reset(now: TimeInterval) {
-        state = .clear
-        coverActive = false
-        coverRemaining = 0
-        scheduleNextClear(now: now)
+    init(scene: GameScene) {
+        self.scene = scene
+        rollNextInterval()
+        applyWeather(.clear)
     }
 
-    func update(now: TimeInterval, dt: TimeInterval) {
-        switch state {
-        case .clear:
-            if now >= nextStateChangeTime {
-                let roll = Double.random(in: 0...1)
-                if roll < thunderChance {
-                    beginThunder(now: now)
-                } else {
-                    beginSnow(now: now)
-                }
-            }
-
-        case .thunderstorm:
-            if coverActive {
-                coverRemaining = max(0, coverRemaining - dt)
-            }
-            if now >= stateEndTime {
-                endToClear(now: now)
-            }
-
-        case .snowstorm:
-            if now >= stateEndTime {
-                endToClear(now: now)
-            }
+    func update(delta: TimeInterval) {
+        timer += delta
+        if timer >= nextChangeIn {
+            timer = 0
+            rollNextInterval()
+            let newWeather = WeatherType.allCases.randomElement() ?? .clear
+            applyWeather(newWeather)
         }
     }
 
-    private func beginThunder(now: TimeInterval) {
-        state = .thunderstorm
-        let duration = TimeInterval.random(in: stormMin...stormMax)
-        stateEndTime = now + duration
+    func modifiers(for weather: WeatherType) -> WeatherModifiers {
+        switch weather {
+        case .clear:
+            return .init(scentGainMultiplier: 1.0, scentDecayMultiplier: 1.0,
+                         staminaDrainPerSec: 0.0, hungerDrainPerSec: 0.0,
+                         spawnIntensityMult: 1.0, visibilityAlpha: 1.0)
 
-        coverActive = true
-        coverRemaining = coverDeadlineSeconds
+        case .rain:
+            return .init(scentGainMultiplier: 0.85, scentDecayMultiplier: 1.35,
+                         staminaDrainPerSec: 0.6, hungerDrainPerSec: 0.2,
+                         spawnIntensityMult: 1.05, visibilityAlpha: 1.0)
+
+        case .snow:
+            return .init(scentGainMultiplier: 0.95, scentDecayMultiplier: 1.05,
+                         staminaDrainPerSec: 1.2, hungerDrainPerSec: 0.8,
+                         spawnIntensityMult: 0.92, visibilityAlpha: 1.0)
+
+        case .fog:
+            return .init(scentGainMultiplier: 1.05, scentDecayMultiplier: 1.0,
+                         staminaDrainPerSec: 0.4, hungerDrainPerSec: 0.3,
+                         spawnIntensityMult: 0.95, visibilityAlpha: 0.65)
+
+        case .heat:
+            return .init(scentGainMultiplier: 1.10, scentDecayMultiplier: 0.90,
+                         staminaDrainPerSec: 1.3, hungerDrainPerSec: 1.1,
+                         spawnIntensityMult: 1.12, visibilityAlpha: 1.0)
+        }
     }
 
-    private func beginSnow(now: TimeInterval) {
-        state = .snowstorm
-        let duration = TimeInterval.random(in: snowMin...snowMax)
-        stateEndTime = now + duration
-
-        coverActive = false
-        coverRemaining = 0
+    var currentModifiers: WeatherModifiers {
+        modifiers(for: current)
     }
 
-    private func endToClear(now: TimeInterval) {
-        state = .clear
-        coverActive = false
-        coverRemaining = 0
-        scheduleNextClear(now: now)
+    private func rollNextInterval() {
+        nextChangeIn = TimeInterval.random(in: 25...45)
     }
 
-    private func scheduleNextClear(now: TimeInterval) {
-        let delay = TimeInterval.random(in: clearMin...clearMax)
-        nextStateChangeTime = now + delay
+    func reset() {
+        current = .clear
+        timer = 0
+        rollNextInterval()
+        applyWeather(.clear)
     }
 
     func playerFoundCover() {
-        coverActive = false
-        coverRemaining = 0
+        // Optional: apply temporary cover benefit when in CoverZone
     }
 
-    func triggerNewCoverChallenge() {
-        coverActive = true
-        coverRemaining = coverDeadlineSeconds
+    private func applyWeather(_ weather: WeatherType) {
+        current = weather
+        guard let scene else { return }
+        let mods = modifiers(for: weather)
+
+        scene.gameState.weather = weather.rawValue
+        scene.gameState.visibilityAlpha = mods.visibilityAlpha
+        scene.gameState.scentGainMultiplier = mods.scentGainMultiplier
+        scene.gameState.scentDecayMultiplier = mods.scentDecayMultiplier
     }
 }

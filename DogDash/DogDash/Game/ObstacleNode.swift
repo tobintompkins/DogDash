@@ -5,6 +5,16 @@ enum ObstacleType: CaseIterable {
     case log    // slide
     case root   // jump
 
+    /// Map biome obstacle IDs to ObstacleType
+    static func from(id: String) -> ObstacleType {
+        switch id.lowercased() {
+        case "log", "mud": return .log
+        case "root", "branch": return .root
+        case "rock", "trashcan", "fence", "cone", "bicycle", "pallet", "pipe", "crate", "barrel", "puddle", "fallenSign", "wire": return .rock
+        default: return .rock
+        }
+    }
+
     var color: SKColor {
         switch self {
         case .rock: return .gray

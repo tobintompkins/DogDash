@@ -1,13 +1,27 @@
 import SpriteKit
 
 enum HideSpotType: CaseIterable {
+    case bush
     case shed
     case tree
     case house
     case culvert
 
+    /// Map biome hide spot IDs to HideSpotType
+    static func from(id: String) -> HideSpotType? {
+        switch id.lowercased() {
+        case "bush": return .bush
+        case "shed": return .shed
+        case "tree": return .tree
+        case "house": return .house
+        case "culvert": return .culvert
+        default: return nil
+        }
+    }
+
     var color: SKColor {
         switch self {
+        case .bush: return .init(red: 0.3, green: 0.5, blue: 0.2, alpha: 1)
         case .shed: return .cyan
         case .tree: return .green
         case .house: return .blue
@@ -17,6 +31,7 @@ enum HideSpotType: CaseIterable {
 
     var size: CGSize {
         switch self {
+        case .bush: return CGSize(width: 80, height: 70)
         case .shed: return CGSize(width: 120, height: 100)
         case .tree: return CGSize(width: 95, height: 130)
         case .house: return CGSize(width: 140, height: 110)
@@ -26,6 +41,7 @@ enum HideSpotType: CaseIterable {
 
     var label: String {
         switch self {
+        case .bush: return "Bush"
         case .shed: return "Shed"
         case .tree: return "Tree"
         case .house: return "House"
@@ -37,6 +53,17 @@ enum HideSpotType: CaseIterable {
         switch self {
         case .culvert: return true
         default: return false
+        }
+    }
+
+    /// Scent reduction when hiding (12...40, better hide = more reduction)
+    var scentReduceStrength: CGFloat {
+        switch self {
+        case .bush: return 12
+        case .tree: return 20
+        case .shed: return 28
+        case .house: return 34
+        case .culvert: return 40
         }
     }
 }

@@ -12,4 +12,7 @@ enum PhysicsCategory {
     static let coverZone: UInt32     = 1 << 9
     static let lightningZone: UInt32 = 1 << 10
     static let icePatch: UInt32 = 1 << 11
+
+    // Batch 11
+    static let laneZone: UInt32 = 1 << 12
 }
